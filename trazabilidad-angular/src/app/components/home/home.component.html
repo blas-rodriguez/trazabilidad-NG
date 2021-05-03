@@ -1,0 +1,27 @@
+<div class="jumbotron mt-5">
+    <h1 class="display-4">{{page_title}}</h1>
+    <p class="lead">Web diseñada para llevar la trazabilidad de una empresa hortofrutícola.</p>
+    <hr class="my-4">
+    <div *ngIf="!identity">
+        <a class="btn btn-primary btn-lg mr-3" [routerLink]="['/login']" role="button">Login</a>
+        <a class="btn btn-primary btn-lg" [routerLink]="['/registro']" role="button">Registrate</a>
+    </div>
+    
+    <div *ngIf="identity && identity.name">
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-compradores']" role="button">Gestión compradores</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-agricultores']" role="button">Gestión agricultores</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-tratamientos']" role="button">Gestión tratamientos</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-zonas']" role="button">Gestión zonas</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-fincas']" role="button">Gestión de fincas</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-cuaderno-campo']" role="button">Gestión cuaderno de campo</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-articulos']" role="button">Gestión artículos</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-formatos']" role="button">Gestión formatos</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-lineas-envasado']" role="button">Gestión línea de envasado</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-transportistas']" role="button">Gestión transportista</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-incidencias']" role="button">Gestión incidencias</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-lotes-entrada']" role="button">Gestión lotes de entrada</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-detalles-salida']" role="button">Gestión detalles de descarga</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-lotes-salida']" role="button">Gestión lotes de salida</a>
+        <a class="btn btn-primary btn-lg mt-3 mr-3" [routerLink]="['/gestion-pales']" role="button">Gestión pales</a>
+    </div>
+</div>

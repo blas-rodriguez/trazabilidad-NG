@@ -1,0 +1,31 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        El artículo se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        El artículo no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #articleForm="ngForm" (ngSubmit)="onSubmit(articleForm)">
+
+        <div class="form-group">
+            <label for="name">Artículo</label>
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="article.article" required>
+            <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+                El artículo es obligatorio
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="article.description" [(froalaModel)]="article.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="articleForm.invalid">Guardar</button>
+    </form>
+</div>

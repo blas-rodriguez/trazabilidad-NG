@@ -1,0 +1,31 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        El nick o contraseña incorrecto, vuelve a intentarlo
+    </div>
+
+    <!--FORMULARIO DE LOGIN-->
+    <form class="col-md-5 ml-0 pl-0" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+        <div class="form-group">
+            <label for="nick">Nick</label>
+            <input type="text" name="nick" class="form-control" #nick="ngModel" [(ngModel)]="user.nick" required
+                pattern="[a-zA-Z]+">
+            <small *ngIf="!nick.valid && nick.touched" class="invalid-feedback d-block">
+                El nick no es válido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" class="form-control" #password="ngModel" [(ngModel)]="user.password"
+                required>
+            <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
+                La contraseña no es válida
+            </small>
+        </div>
+
+        <input type="submit" value="Entrar" class="btn btn-success" [disabled]="loginForm.invalid">
+    </form>
+</div>

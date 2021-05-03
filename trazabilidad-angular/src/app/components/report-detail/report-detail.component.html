@@ -1,0 +1,38 @@
+<div class="col-md-12 mt-3" *ngIf="!report">
+    <div class="d-flex align-items-center">
+        <strong>Cargando...</strong>
+        <div class="spinner-border ml-auto text-primary" role="status" aria-hidden="true"></div>
+    </div>
+</div>
+
+<div class="col-md-12" *ngIf="report">
+    <h1 class="mt-3">Incidencia</h1>
+    <form class="mt-3 ml-0 pl-0">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="batch_output">Lote salida</label>
+            <p class="form-control">{{report.batch_output_id}}</p>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="entry_lot">Lote entrada</label>
+            <p class="form-control">{{report.entry_lot_id}}</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="incidence">Incidencia</label>
+          <p class="form-control" [innerHtml]="report.incidence"></p>
+        </div>
+
+        <div class="form-group">
+          <label for="solution">Solución</label>
+          <p class="form-control" [innerHtml]="report.solution"></p>
+        </div>
+
+      </form>
+
+      <div class="mt-3">
+        <a class="btn btn-success btn-lg mt-3" [routerLink]="['/gestion-incidencias']" role="button">Gestión de incidencias</a>
+      </div>
+</div>

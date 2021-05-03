@@ -1,0 +1,68 @@
+<div class="col-md-12 mt-3" *ngIf="!entry_lot">
+    <div class="d-flex align-items-center">
+        <strong>Cargando...</strong>
+        <div class="spinner-border ml-auto text-primary" role="status" aria-hidden="true"></div>
+    </div>
+</div>
+
+
+<div class="col-md-12" *ngIf="entry_lot">
+    <h1 class="mt-3">Lote de entrada</h1>
+    <form class="mt-3 ml-0 pl-0">
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="article">Artículo</label>
+            <p class="form-control">{{entry_lot.article.article}}</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="gross">Bruto</label>
+                <p class="form-control">{{entry_lot.gross}} Kg</p>
+              </div>
+      
+              <div class="form-group col-md-4">
+                <label for="tare">Tara</label>
+                <p class="form-control">{{entry_lot.tare}} Kg</p>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="package">Bultos</label>
+                <p class="form-control">{{entry_lot.packaged}}</p>
+              </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="discount">Descuento</label>
+            <p class="form-control">{{entry_lot.discount}} %</p>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="carrier">Transportista</label>
+            <p class="form-control">{{entry_lot.carrier.company}}</p>
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="number_plate">Matricula</label>
+            <p class="form-control">{{entry_lot.number_plate}}</p>
+          </div>
+
+          <div class="form-group col-md-2">
+            <label for="used">Usado</label>
+            <p class="form-control" *ngIf="entry_lot.used == 0">No</p>
+            <p class="form-control" *ngIf="entry_lot.used == 1">Si</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <p class="form-control" [innerHtml]="entry_lot.description"></p>
+        </div>
+      </form>
+
+      <div class="mt-3">
+        <a class="btn btn-success btn-lg mt-3" [routerLink]="['/gestion-lotes-entrada']" role="button">Gestión de lotes de entrada</a>
+      </div>
+</div>

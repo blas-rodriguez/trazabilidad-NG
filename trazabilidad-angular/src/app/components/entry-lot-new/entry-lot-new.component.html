@@ -1,0 +1,99 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        El lote de entrada se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        El lote de entrada no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #entryLotForm="ngForm" (ngSubmit)="onSubmit(entryLotForm)">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="article_id">Artículo</label>
+                <select name="article_id" #article_id="ngModel" [(ngModel)]="entry_lot.article_id" class="form-control">
+                    <option *ngFor="let article of articles" value="{{article.id}}">{{article.article}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="notebook_id">Cuaderno de campo</label>
+                <select name="notebook_id" #notebook_id="ngModel" [(ngModel)]="entry_lot.notebook_id"
+                    class="form-control">
+                    <option *ngFor="let notebook of notebooks" value="{{notebook.id}}">{{notebook.farmer.name+'
+                        '+notebook.farmer.surname}} ( {{notebook.estate.place+' - '+notebook.estate.route}} )</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="gross">Bruto</label>
+                <input type="number" name="gross" class="form-control" #gross="ngModel" [(ngModel)]="entry_lot.gross"
+                    required>
+                <small *ngIf="!gross.valid && gross.touched" class="invalid-feedback d-block">
+                    El peso bruto es incorrecto
+                </small>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="tare">Tara</label>
+                <input type="number" name="tare" #tare="ngModel" [(ngModel)]="entry_lot.tare" class="form-control"
+                    required>
+                <small *ngIf="!tare.valid && tare.touched" class="invalid-feedback d-block">
+                    La tara es incorrecta
+                </small>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="package">Bultos</label>
+                <input type="number" name="package" #package="ngModel" [(ngModel)]="entry_lot.packaged"
+                    class="form-control">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="discount">Descuento</label>
+                <input type="text" name="discount" class="form-control" #discount="ngModel"
+                    [(ngModel)]="entry_lot.discount">
+            </div>
+
+            <div class="form-group col-md-5">
+                <label for="carrier_id">Transportista</label>
+                <select name="carrier_id" #carrier_id="ngModel" [(ngModel)]="entry_lot.carrier_id" class="form-control">
+                    <option *ngFor="let carrier of carriers" value="{{carrier.id}}">{{carrier.company}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="number_plate">Matricula</label>
+                <input type="text" name="number_plate" #number_plate="ngModel" [(ngModel)]="entry_lot.number_plate"
+                    class="form-control">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="used">Usado</label>
+                <select name="used" #used="ngModel" [(ngModel)]="entry_lot.used" class="form-control" required>
+                    <option value="0">No</option>
+                    <option value="1">Si</option>
+                </select>
+                <small *ngIf="!used.valid && used.touched" class="invalid-feedback d-block">
+                    Este campo es obligatorio
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="entry_lot.description" [(froalaModel)]="entry_lot.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="entryLotForm.invalid">Guardar</button>
+    </form>
+</div>

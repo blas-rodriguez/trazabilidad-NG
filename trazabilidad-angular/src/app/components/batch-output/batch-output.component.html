@@ -1,0 +1,56 @@
+<h1 class="mt-5">{{page_title}}</h1>
+<hr>
+
+<table class="table mt-3">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Comprador</th>
+      <th scope="col">Artículo</th>
+      <th scope="col">Transportista</th>
+      <th scope="col">Completado</th>
+      <th scope="col">Cargado</th>
+      <th scope="col">Descripción</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let batch_output of batch_outputs | paginate: { itemsPerPage: 5, currentPage: page }">
+    <tr>
+      <td>{{batch_output.id}}</td>
+      <td>{{batch_output.buyer.company}}</td>
+      <td>{{batch_output.article.article}}</td>
+      <td>{{batch_output.carrier.company}}</td>
+      <td *ngIf="batch_output.completed == 0">No</td>
+      <td *ngIf="batch_output.completed == 1">Si</td>
+      <td *ngIf="batch_output.loaded == 0">No</td>
+      <td *ngIf="batch_output.loaded == 1">Si</td>
+      <td [innerHtml]="batch_output.description"></td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Opciones
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" [routerLink]="['/lote-salida', batch_output.id]">Ver</a>
+            <a class="dropdown-item" [routerLink]="['/editar-lote-salida', batch_output.id]">Editar</a>
+            <a class="dropdown-item pointer" (click)="deleteBatchOutput(batch_output.id)">Borrar</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="mt-3">
+  <a class="btn btn-success btn-lg mt-3" [routerLink]="['/crear-lote-salida']" role="button">Crear lote de salida</a>
+</div>
+<div class="mx-auto" style="width: 353px;">
+  <pagination-controls
+    (pageChange)="page = $event"  
+    autoHide="true"
+    responsive="true"
+    previousLabel="Anterior"
+    nextLabel="Siguiente">
+</pagination-controls>
+</div>

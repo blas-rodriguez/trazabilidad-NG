@@ -1,0 +1,68 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        El lote de salida se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        El lote de salida no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #batch_outputForm="ngForm" (ngSubmit)="onSubmit(batch_outputForm)">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="buyer_id">Comprador</label>
+                <select name="buyer_id" #buyer_id="ngModel" [(ngModel)]="batch_output.buyer_id" class="form-control">
+                    <option *ngFor="let buyer of buyers" value="{{buyer.id}}">{{buyer.company}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="article_id">Artículo</label>
+                <select name="article_id" #article_id="ngModel" [(ngModel)]="batch_output.article_id"
+                    class="form-control">
+                    <option *ngFor="let article of articles" value="{{article.id}}">{{article.article}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="carrier_id">Transportista</label>
+                <select name="carrier_id" #carrier_id="ngModel" [(ngModel)]="batch_output.carriers_id"
+                    class="form-control">
+                    <option *ngFor="let carrier of carriers" value="{{carrier.id}}">{{carrier.company}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="completed">Completado</label>
+                <select name="completed" #completed="ngModel" [(ngModel)]="batch_output.completed" class="form-control">
+                    <option value="0">No</option>
+                    <option value="1">Si</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="loaded">Cargado</label>
+                <select name="loaded" #loaded="ngModel" [(ngModel)]="batch_output.loaded" class="form-control">
+                    <option value="0">No</option>
+                    <option value="1">Si</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="batch_output.description" [(froalaModel)]="batch_output.description" required></textarea>
+            <small *ngIf="!description.valid && description.touched" class="invalid-feedback d-block">
+                La descripción es obligatoria
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="batch_outputForm.invalid">Guardar</button>
+    </form>
+</div>

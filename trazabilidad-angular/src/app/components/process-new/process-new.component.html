@@ -1,0 +1,49 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <!--<div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        El comprador se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        El comprador no se han guardado.
+    </div>-->
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #processForm="ngForm" (ngSubmit)="onSubmit(processForm)">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="notebook_id">Cuaderno de campo</label>
+            <select name="notebook_id" #notebook_id="ngModel" [(ngModel)]="process.notebook_id" class="form-control" required>
+                <option *ngFor="let notebook of notebooks" value="{{notebook.id}}">{{notebook.farmer.name+' '+notebook.farmer.surname+' '+notebook.estate.route+' ('+notebook.estate.place+')'}}</option>
+            </select>
+            <small *ngIf="!notebook_id.valid && notebook_id.touched" class="invalid-feedback d-block">
+                El cuaderno de campo es obligatorio
+            </small>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="name">Tratamiento</label>
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="process.process" required>
+            <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+                El nombre del tratamiento no es valido
+            </small>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="dated">Fecha</label>
+            <input type="text" name="dated" class="form-control" #dated="ngModel" [(ngModel)]="process.dated" required placeholder="DD/MM/YYYY">
+            <small *ngIf="!dated.valid && dated.touched" class="invalid-feedback d-block">
+              La fecha es obligatoria
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel" [(ngModel)]="process.description" [(froalaModel)]="process.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="processForm.invalid">Guardar</button>
+      </form>
+</div>

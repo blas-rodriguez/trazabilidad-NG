@@ -1,0 +1,32 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        La línea de envasado se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        La línea de envasado no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #packagingLineForm="ngForm" (ngSubmit)="onSubmit(packagingLineForm)">
+
+        <div class="form-group">
+            <label for="name">Línea envasado</label>
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="packaging_line.packaging_line"
+                required>
+            <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+               La línea de envasado es obligatoria
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="packaging_line.description" [(froalaModel)]="packaging_line.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="packagingLineForm.invalid">Guardar</button>
+    </form>
+</div>

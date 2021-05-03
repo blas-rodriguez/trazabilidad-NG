@@ -1,0 +1,45 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        La incidencia se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        La incidencia no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #reportForm="ngForm" (ngSubmit)="onSubmit(reportForm)">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="batch_output_id">Lote salida</label>
+            <select name="batch_output_id" #batch_output="ngModel" [(ngModel)]="report.batch_output_id" class="form-control">
+                <option *ngFor="let batch_output of batch_outputs" value="{{batch_output.id}}">{{batch_output.buyer.company+' - '+batch_output.article.article}}</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="entry_lot_id">Lote entrada</label>
+            <select name="entry_lot_id" #entry_lot_id="ngModel" [(ngModel)]="report.entry_lot_id" class="form-control">
+                <option *ngFor="let entry_lot of entries_lots" value="{{entry_lot.id}}">{{entry_lot.article.article}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="incidence">Incidencia</label>
+          <textarea [froalaEditor]="froala_options" name="incidence" class="form-control" #incidence="ngModel" [(ngModel)]="report.incidence" [(froalaModel)]="report.incidence"></textarea>
+          <small *ngIf="!incidence.valid && incidence.touched" class="invalid-feedback d-block">
+            La incidencia es obligatoria
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="solution">Solución</label>
+          <textarea [froalaEditor]="froala_options" name="solution" class="form-control" #solution="ngModel" [(ngModel)]="report.solution" [(froalaModel)]="report.solution"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="reportForm.invalid">Guardar</button>
+      </form>
+</div>

@@ -1,0 +1,70 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        La finca se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        La finca no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #estateForm="ngForm" (ngSubmit)="onSubmit(estateForm)">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="place">Lugar</label>
+                <input type="text" name="place" class="form-control" #place="ngModel" [(ngModel)]="estate.place"
+                    required>
+                <small *ngIf="!place.valid && place.touched" class="invalid-feedback d-block">
+                    El lugar no es obligatorio
+                </small>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="route">Ruta</label>
+                <input type="text" name="route" class="form-control" #route="ngModel" [(ngModel)]="estate.route"
+                    required>
+                <small *ngIf="!route.valid && route.touched" class="invalid-feedback d-block">
+                    La ruta es obligatoria
+                </small>
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-4">
+                <label for="province">Provincia</label>
+                <input type="text" name="province" class="form-control" #province="ngModel"
+                    [(ngModel)]="estate.province" required>
+                <small *ngIf="!province.valid && province.touched" class="invalid-feedback d-block">
+                    La provincia es obligatoria
+                </small>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="industrial_park">Polígono industrial</label>
+                <input type="text" name="industrial_park" class="form-control" #industrial_park="ngModel"
+                    [(ngModel)]="estate.industrial_park">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="plot">Parcela</label>
+                <input type="text" name="plot" #postcode="ngModel" [(ngModel)]="estate.plot" class="form-control">
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="gps">Coordenadas GPS</label>
+                <input type="text" name="gps" class="form-control" #gps="ngModel" [(ngModel)]="estate.gps">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="estate.description" [(froalaModel)]="estate.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="estateForm.invalid">Guardar</button>
+    </form>
+</div>

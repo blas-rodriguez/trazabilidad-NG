@@ -1,0 +1,44 @@
+<h1 class="mt-5">{{page_title}}</h1>
+<hr>
+
+<table class="table mt-3">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Empresa</th>
+      <th scope="col">Descripción</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let carrier of carriers | paginate: { itemsPerPage: 5, currentPage: page }">
+    <tr>
+      <td>{{carrier.company}}</td>
+      <td [innerHtml]="carrier.description"></td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Opciones
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" [routerLink]="['/transportista', carrier.id]">Ver</a>
+            <a class="dropdown-item" [routerLink]="['/editar-transportista', carrier.id]">Editar</a>
+            <a class="dropdown-item pointer" (click)="deleteCarrier(carrier.id)">Borrar</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="mt-3">
+  <a class="btn btn-success btn-lg mt-3" [routerLink]="['/crear-transportista']" role="button">Crear transportista</a>
+</div>
+<div class="mx-auto" style="width: 353px;">
+  <pagination-controls
+    (pageChange)="page = $event"  
+    autoHide="true"
+    responsive="true"
+    previousLabel="Anterior"
+    nextLabel="Siguiente">
+</pagination-controls>
+</div>

@@ -1,0 +1,50 @@
+<h1 class="mt-5">{{page_title}}</h1>
+<hr>
+
+<table class="table mt-3">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Lote salida</th>
+      <th scope="col">Lote entrada</th>
+      <th scope="col">Incidencia</th>
+      <th scope="col">Solución</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let report of reports | paginate: { itemsPerPage: 5, currentPage: page }">
+    <tr>
+      <td>{{report.id}}</td>
+      <td>{{report.batch_output_id}}</td>
+      <td>{{report.entry_lot_id}}</td>
+      <td [innerHtml]="report.incidence"></td>
+      <td [innerHtml]="report.solution"></td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Opciones
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" [routerLink]="['/incidencia', report.id]">Ver</a>
+            <a class="dropdown-item" [routerLink]="['/editar-incidencia', report.id]">Editar</a>
+            <a class="dropdown-item pointer" (click)="deleteReport(report.id)">Borrar</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="mt-3">
+  <a class="btn btn-success btn-lg mt-3" [routerLink]="['/crear-incidencia']" role="button">Crear incidencia</a>
+</div>
+<div class="mx-auto" style="width: 353px;">
+  <pagination-controls
+    (pageChange)="page = $event"  
+    autoHide="true"
+    responsive="true"
+    previousLabel="Anterior"
+    nextLabel="Siguiente">
+</pagination-controls>
+</div>

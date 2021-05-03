@@ -1,0 +1,76 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        El pale se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        El pale no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #paleForm="ngForm" (ngSubmit)="onSubmit(paleForm)">
+          <div class="form-group">
+            <label for="batch_output_id">Lote salida</label>
+            <select name="batch_output_id" #batch_output_id="ngModel" [(ngModel)]="pale.batch_output_id" class="form-control" required>
+                <ng-container *ngFor="let batch_output of batch_outputs">
+                    <option  value="{{batch_output.id}}" *ngIf="batch_output.completed == 0 || edit == true">{{batch_output.buyer.company+' - '+batch_output.article.article}}</option>
+                </ng-container>
+            </select>
+          </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="gross">Bruto</label>
+                <input type="text" name="gross" class="form-control" #gross="ngModel" [(ngModel)]="pale.gross" required>
+                <small *ngIf="!gross.valid && gross.touched" class="invalid-feedback d-block">
+                    El peso bruto es obligatorio
+                </small>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="tare">Tara</label>
+                <input type="text" name="tare" class="form-control" #tare="ngModel" [(ngModel)]="pale.tare" required>
+                <small *ngIf="!tare.valid && tare.touched" class="invalid-feedback d-block">
+                  La tara es obligatoria
+                </small>
+              </div>
+      
+              <div class="form-group col-md-4">
+                <label for="package">Bultos</label>
+                <input type="text" name="package" #package="ngModel" [(ngModel)]="pale.packaged" class="form-control">
+              </div>
+        </div>  
+        
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="pieces">Piezas</label>
+            <input type="text" name="pieces" class="form-control" #pieces="ngModel" [(ngModel)]="pale.pieces">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="packaging_line">Línea envasado</label>
+            <select name="packaging_line_id" #packaging_line_id="ngModel" [(ngModel)]="pale.packaging_line_id" class="form-control">
+                <option *ngFor="let packaging_line of packaging_lines" value="{{packaging_line.id}}">{{packaging_line.packaging_line}}</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="container">Formato</label>
+            <select name="container" #container="ngModel" [(ngModel)]="pale.container_id" class="form-control">
+                <option *ngFor="let container of containers" value="{{container.id}}">{{container.container}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel" [(ngModel)]="pale.description" [(froalaModel)]="pale.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success mr-3" [disabled]="paleForm.invalid">Guardar</button>
+        <button type="button" (click)="generatePDF()" class="btn btn-warning" *ngIf="status == 'success'">Imprimir etiqueta</button>
+      </form>
+      
+</div>

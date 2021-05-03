@@ -1,0 +1,54 @@
+<div class="col-md-12 mt-3" *ngIf="!output_detail">
+    <div class="d-flex align-items-center">
+        <strong>Cargando...</strong>
+        <div class="spinner-border ml-auto text-primary" role="status" aria-hidden="true"></div>
+    </div>
+</div>
+
+<div class="col-md-12" *ngIf="output_detail">
+    <h1 class="mt-3">Detalle salida</h1>
+    <form class="mt-3 ml-0 pl-0">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="id">ID</label>
+            <p class="form-control">{{output_detail.id}}</p>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="line_id">Línea</label>
+            <p class="form-control">{{output_detail.packaging_line.packaging_line}}</p>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="entry_lot">Lote entrada</label>
+            <p class="form-control">{{output_detail.entry_lot.id}}</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="kg_used">Kg usados</label>
+            <p class="form-control">{{output_detail.kg_used}}</p>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="create_date">Fecha creación</label>
+            <p class="form-control">{{output_detail.created_at | amLocale: 'es' | amDateFormat: 'LL - HH:mm:ss'}}</p>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="update_date">Ultima actualización</label>
+            <p class="form-control">{{output_detail.updated_at | amLocale: 'es' | amDateFormat: 'LL - HH:mm:ss'}}</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <p class="form-control" [innerHtml]="output_detail.description"></p>
+        </div>
+      </form>
+
+      <div class="mt-3">
+        <a class="btn btn-success btn-lg mt-3" [routerLink]="['/gestion-detalles-salida']" role="button">Gestión detalles de salida</a>
+      </div>
+</div>

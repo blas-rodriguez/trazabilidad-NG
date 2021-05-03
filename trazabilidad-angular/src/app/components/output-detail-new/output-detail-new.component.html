@@ -1,0 +1,52 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        El detalle de salida se han guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        El detalle de salida no se han guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #outputDetailForm="ngForm" (ngSubmit)="onSubmit(outputDetailForm)">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="line_id">Línea</label>
+                <select name="line_id" #line_id="ngModel" [(ngModel)]="output_detail.packaging_line_id" class="form-control">
+                    <option *ngFor="let packaging_line of packaging_lines" value="{{packaging_line.id}}">{{packaging_line.packaging_line}}</option>
+                </select>
+                <small *ngIf="!line_id.valid && line_id.touched" class="invalid-feedback d-block">
+                    La linea de empaquetado no es valida
+                </small>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="entryLot">Lote entrada</label>
+                <select name="entryLot" #entryLot="ngModel" [(ngModel)]="output_detail.entry_lot_id" class="form-control">
+                    <option *ngFor="let entry_lot of entries_lots" value="{{entry_lot.id}}">{{entry_lot.id+' - '+entry_lot.article.article}}</option>
+                </select>
+                <small *ngIf="!entryLot.valid && entryLot.touched" class="invalid-feedback d-block">
+                    El lote de entrada no es valido
+                </small>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="kg_used">Kg usados</label>
+                <input type="number" name="kg_used" class="form-control" #kg_used="ngModel" [(ngModel)]="output_detail.kg_used" required>
+                <small *ngIf="!kg_used.valid && kg_used.touched" class="invalid-feedback d-block">
+                    Los Kg usados son obligatorios
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel" [(ngModel)]="output_detail.description" 
+            [(froalaModel)]="output_detail.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="outputDetailForm.invalid">Guardar</button>
+    </form>
+</div>

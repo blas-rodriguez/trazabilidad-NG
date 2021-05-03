@@ -1,0 +1,30 @@
+<div class="col-md-12 mt-3">
+    <h1>{{page_title}}</h1>
+
+    <div class="alert alert-success col-md-5 mt-3" *ngIf="status == 'success'">
+        La zona se ha guardado correctamente.
+    </div>
+
+    <div class="alert alert-danger col-md-5 mt-3" *ngIf="status == 'error'">
+        La zona no se ha guardado.
+    </div>
+
+    <!--FORMULARIO DE AJUSTES-->
+    <form class="ml-0 pl-0" #zoneForm="ngForm" (ngSubmit)="onSubmit(zoneForm)">
+        <div class="form-group">
+            <label for="name">Zona</label>
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="zone.zone" required pattern="[a-zA-Z _]+">
+            <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+                El nombre de la zona no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea [froalaEditor]="froala_options" name="description" class="form-control" #description="ngModel"
+                [(ngModel)]="zone.description" [(froalaModel)]="zone.description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="zoneForm.invalid">Guardar</button>
+    </form>
+</div>
