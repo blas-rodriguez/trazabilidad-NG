@@ -14,6 +14,10 @@ import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
+//Cargamos el Guard de angular
+import { IdentityGuard } from './services/identity.guard';
+import { UserService } from './services/user.service';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -162,7 +166,9 @@ import { PaleEditComponent } from './components/pale-edit/pale-edit.component';
     routing
   ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    IdentityGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
